@@ -65,7 +65,7 @@
                             <div class="row">
                               <div class="card col-md-4">
                                 <div class="card-header custom-button text-white">Detail</div>
-                                <img class="card-img-top" src="{{ Storage::url('assets/'.$agriculturalGroup->photo_area ?? '') }}" width="100" height="180" alt="Card image cap">
+                                <img class="card-img-top" src="{{ Storage::url($agriculturalGroup->photo_area ?? '') }}" width="100" height="180" alt="Card image cap">
                                 <div class="card-body">
                                   <h6 class="card-title">
                                     {{ $agriculturalGroup->typeAgricultur->name_type }} 
