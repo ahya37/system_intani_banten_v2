@@ -3,7 +3,7 @@
     Intani Banten
 @endsection
 @push('addon-style')
-    <link href="/css/home.css" rel="stylesheet" />
+          <link href="{{ asset('css/home.css') }}" rel="stylesheet" />
 @endpush
 @section('content')
 <!-- Page Content -->
@@ -76,10 +76,10 @@
     </div>
 @endsection
 @push('addon-script')
-<script src="/vendor/jquery/jquery.slim.min.js"></script>
-    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{{ asset('vendor/jquery/jquery.slim.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="/vendor/vue/vue.js"></script>
+    <script src="{{ asset('vendor/vue/vue.js') }}"></script>
     <script src="https://unpkg.com/vue-toasted"></script>
 <script>
   var manager = new Vue({

@@ -3,7 +3,7 @@
     Intani Banten
 @endsection
 @push('addon-style')
-    <link href="/css/home.css" rel="stylesheet" />
+      <link href="{{ asset('css/home.css') }}" rel="stylesheet" />
 @endpush
 @section('content')
 <!-- Page Content -->

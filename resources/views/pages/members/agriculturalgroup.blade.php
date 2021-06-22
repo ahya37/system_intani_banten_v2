@@ -260,9 +260,9 @@
     </div>
 @endsection
 @push('addon-script')
-<script src="/vendor/vue/vue.js"></script>
+<script src="{{ asset('vendor/vue/vue.js') }}"></script>
 <script src="https://unpkg.com/vue-toasted"></script>
-<script src="/vendor/axios/axios.min.js"></script>
+<script src="{{ asset('vendor/axios/axios.min.js') }}"></script>
 
 <script>
       Vue.use(Toasted);

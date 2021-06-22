@@ -29,7 +29,7 @@
    @include('includes.footer')
 
    {{-- Script --}}
-    <script  type="text/javascript" src="/js/loader.js"></script>
+    <script  type="text/javascript" src="{{ asset('js/loader.js') }}"></script>
    @stack('prepend-script')
    @include('includes.script')
    @stack('addon-script')

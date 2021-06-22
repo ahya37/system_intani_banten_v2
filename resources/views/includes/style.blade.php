@@ -7,6 +7,6 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link href="/css/button.css" rel="stylesheet" />
-    <link href="/css/loader.css" rel="stylesheet" />
+    <link href="{{ asset('css/button.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/loader.css') }}" rel="stylesheet" />
 
