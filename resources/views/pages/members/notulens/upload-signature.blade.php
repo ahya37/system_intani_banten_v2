@@ -18,7 +18,7 @@
                         <div class="card-body">
                             <h6>Silahkan upload gambar tanda tangan Anda untuk membuat notulensi !</h6>
                             <div class="col-md-12 mb-4 text-center">
-                                    <img src="/images/notulens.svg" alt="" width="100px">
+                                    <img src="{{ asset('images/notulens.svg') }}" alt="" width="100px">
                             </div>
                             <div class="col-md-12 text-center">
                                 <form action="{{ route('member-notulen-signature-save') }}" method="POST" enctype="multipart/form-data">
