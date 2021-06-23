@@ -26,7 +26,7 @@
                 bottom: -50px; 
                 left: 0px; 
                 right: 0px;
-                height: 150px; 
+                height: 100px; 
 
                 /** Extra personal styles **/
                 color: rgb(8, 7, 7);
