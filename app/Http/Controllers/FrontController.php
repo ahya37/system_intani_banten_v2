@@ -39,7 +39,7 @@ class FrontController extends Controller
         return redirect()->back()->with(['success' => 'Kelompok pertanian telah dibuat']);
     }
 
-    public function processRegisterMember(MemberRequest $request)
+    public function processRegisterMember(Request $request)
     {
         if ($request->hasFile('photo')){
             $data = $request->all();

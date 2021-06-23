@@ -25,11 +25,6 @@ class ManagerController extends Controller
         if ($is_manager == 'true') {
             // maka simpan ke tb manager dengan get member_id loginnya
             Manager::create(['member_id' => $member_id]);
-            // // update roles_managernya = 1
-            $member = Member::where('id', $member_id)->first();
-            $member->update([
-                'roles_manager' => 1,
-                ]);
 
             // update status_management / status_kelola pada kelompok pertaniannya = 1
             $this->getUpdateStatusManagement($member_id);
@@ -40,7 +35,6 @@ class ManagerController extends Controller
             $members = Member::create([
                 'name' => $request->name,
                 'address' => $request->address,
-                'roles_manager' => 1,
                 ]);
             // dan simpan ke tb manager
             Manager::create(['member_id' => $members->id]);

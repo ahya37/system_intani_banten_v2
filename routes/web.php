@@ -21,6 +21,8 @@ Route::post('/typeagricultur/add','FrontController@addTypeAgricultur')->name('ad
 Route::post('/register/member/store','FrontController@processRegisterMember')->name('register.member.store');
 Route::get('verify/{token}', 'FrontController@verifyMemberRegistration')->name('member.verify');
 
+Route::get('success/submission/{code}', 'Member\SurveyTeamController@successAproveSubmission')->name('succes-aprove-submission');
+
 Route::group(['prefix' => 'member','namespace' => 'Member'], function(){
 	 		Route::get('login', 'LoginController@login')->name('member-page-login');
 	 		Route::post('login','LoginController@store')->name('member-login');
@@ -28,6 +30,8 @@ Route::group(['prefix' => 'member','namespace' => 'Member'], function(){
 	 		Route::group(['middleware' => 'member'], function(){
 	 			Route::get('dashboard', 'HomeController@index')->name('member-dashboard');
 				Route::post('logout', 'LoginController@logout')->name('member-logout');
+
+				// profile
 	 			Route::get('persoanl/invalid/profesion', 'HomeController@invalidProfesion')->name('member-invalid-profesion');
 	 			Route::get('persoanl/profile','ProfileController@index')->name('member-profile');
 				Route::get('persoanl/ecard','ProfileController@ecard')->name('member-ecard');
@@ -35,6 +39,7 @@ Route::group(['prefix' => 'member','namespace' => 'Member'], function(){
 				Route::post('personal/agriculturgroup/save','AgriculturGroupController@store')->name('member-store-agriculturgroup');
 				Route::get('personal/capital','CapitalController@createPersonal')->name('member-persoanl-capital');
 
+				// management dan investor
 				Route::get('/next/management','ManagerController@nextManagement')->name('member-next-management');
 				Route::post('/next/management/save','ManagerController@nextStore')->name('member-next-management-save');
 				Route::get('/next/investor','InvestorController@nextInvestor')->name('member-next-investor');
@@ -42,6 +47,7 @@ Route::group(['prefix' => 'member','namespace' => 'Member'], function(){
 				Route::get('/next/capital','CapitalController@createPersonal')->name('member-next-capital');
 				Route::post('/next/capital/save','CapitalController@nextStore')->name('member-next-capital-save');
 
+				// notulen
 				Route::get('persoanl/cek/profession','ProfileController@profession')->name('member-cek-profession');
 				Route::get('notulen/index','NotulenController@index')->name('member-notulen');
 				Route::get('notulen/create','NotulenController@create')->name('member-notulen-create');
@@ -50,6 +56,9 @@ Route::group(['prefix' => 'member','namespace' => 'Member'], function(){
 				Route::post('notulen/save','NotulenController@store')->name('member-notulen-save');
 				Route::post('notulen/signature/save','NotulenController@saveSignature')->name('member-notulen-signature-save');
 
+				// tim survey
+				Route::get('timsurvey','SurveyTeamController@index')->name('member-surveyteam');
+				Route::post('timsurvey/submission','SurveyTeamController@saveSubmission')->name('member-surveyteam-submission');
 
 
 	 		});	
