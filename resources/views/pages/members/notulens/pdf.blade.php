@@ -72,7 +72,7 @@
         
          <footer>
              <p>Hormat Saya</p>
-                <img src="{{Storage::url($notulens->member->signature)}}" style="width: 80px">
+                <img src="{{asset('storage/'.$notulens->member->signature)}}" style="width: 80px">
              <p style="color: black">{{$notulens->member->name}}</p>
         </footer>
 </body>
