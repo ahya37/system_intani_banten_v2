@@ -64,7 +64,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <img src="{{Storage::url($notulens->member->signature)}}" width="100">
+                                            <img src="{{asset('storage/'.$notulens->member->signature)}}" width="100">
                                             <p align="center" style="color: black">{{$notulens->member->name}}</p>
                                         </td>
                                     </tr>
