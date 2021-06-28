@@ -203,6 +203,64 @@
             <li class="nav-item active">
               <a href="{{route('member-dashboard')}}" class="nav-link">Dasbor</a>
             </li>
+
+              @if (auth()->guard('member')->user()->roles_survey_team == 2)
+              <li class="nav-item dropdown">
+               <a
+                 class="nav-link active dropdown-toggle"
+                 href="#"
+                 role="button"
+                 data-toggle="dropdown"
+                 aria-haspopup="true"
+                 aria-expanded="false"
+                 v-pre
+               >
+                 Survei
+               </a>
+               <div
+                 class="dropdown-menu dropdown-menu-right"
+                 aria-labelledby="navbarDropdown"
+               >
+                 <a
+                   class="dropdown-item"
+                   href=""
+                 >
+                   Petani
+                 </a>
+                 <a
+                   class="dropdown-item"
+                   href="{{ route('member-farmer-create') }}"
+                 >
+                   Tambah Petani
+                 </a>
+                 <a
+                   class="dropdown-item"
+                   href=""
+                 >
+                   Kelompok Pertanian
+                 </a>
+                  <a
+                   class="dropdown-item"
+                   href=""
+                 >
+                   Pengelola
+                 </a>
+                  <a
+                   class="dropdown-item"
+                   href=""
+                 >
+                   Investor
+                 </a>
+                  <a
+                   class="dropdown-item"
+                   href=""
+                 >
+                   Permodalan
+                 </a>
+               </div>
+              </li>
+              @endif
+
              <li class="nav-item dropdown">
               <a
                 href="#"

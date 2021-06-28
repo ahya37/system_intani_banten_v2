@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use App\Member;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -73,6 +74,11 @@ class RegisterController extends Controller
 
     public function check(Request $request)
     {
-        return User::where('email', $request->email)->count() > 0 ? 'Unavailable' : 'Available';
+        return Member::where('email', $request->email)->count() > 0 ? 'Unavailable' : 'Available';
+    }
+
+    public function nik(Request $request)
+    {
+        return Member::where('nik', $request->nik)->count() > 0 ? 'Unavailable' : 'Available';
     }
 }

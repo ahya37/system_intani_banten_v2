@@ -34,6 +34,6 @@
         </tr>
     </table>
     <p>Silahkan setujui</p>  
-    <a href="{{ route('succes-aprove-submission', $member->code) }}" class="button">DISINI</a>
+    <a href="{{ route('succes-aprove-submission', $member->code) }}" class="button" style="color: white">DISINI</a>
 </body>
 </html>

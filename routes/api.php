@@ -24,3 +24,4 @@ Route::get('regencies/{province_id}', 'API\LocationController@regencies')->name(
 Route::get('districts/{regency_id}', 'API\LocationController@districts')->name('api-districts');
 Route::get('villages/{district_id}', 'API\LocationController@villages')->name('api-villages');
 Route::get('typeagricultur','API\TypeOfAgriculturController@typeofagricultur')->name('api-typeofagricultur');
+Route::get('nik/check', 'Auth\RegisterController@nik')->name('api-nik-check');

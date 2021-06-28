@@ -59,6 +59,9 @@ Route::group(['prefix' => 'member','namespace' => 'Member'], function(){
 				// tim survey
 				Route::get('timsurvey','SurveyTeamController@index')->name('member-surveyteam');
 				Route::post('timsurvey/submission','SurveyTeamController@saveSubmission')->name('member-surveyteam-submission');
+				Route::get('farmer/create','SurveyTeamController@createFarmer')->name('member-farmer-create');
+				Route::post('farmer/save','SurveyTeamController@saveAddFarmer')->name('member-farmer-save');
+				Route::get('agricultur/create','SurveyTeamController@createAgriculturGroup')->name('member-agricultur-create');
 
 
 	 		});	
