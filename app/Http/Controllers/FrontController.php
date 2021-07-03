@@ -8,7 +8,6 @@ use App\TypeOfAgricultur;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\ProfessionalCategory;
-use App\Http\Requests\MemberRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
@@ -71,5 +70,10 @@ class FrontController extends Controller
         }
 
         return redirect()->route('login')->with(['error' => 'Invalid Verifikasi Token']);
+    }
+
+    public function registerManagement()
+    {
+        
     }
 }

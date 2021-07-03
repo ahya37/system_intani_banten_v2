@@ -1,4 +1,11 @@
 @extends('layouts.app')
+@push('addon-style')
+   <style>
+    .required{
+        color: red;
+    }
+</style> 
+@endpush
 @section('title')
     Intani Banten
 @endsection
@@ -19,15 +26,25 @@
                   <div class="row row-login">
                     <div class="col-lg-6">
                         <div class="form-group">
+                            <span class="required">*</span>
                           <label>NIK</label>
-                          <input
+                         <input
                             type="text"
                             class="form-control is-valid"
                             name="nik"
+                            v-model="nik"
+                            @change="checkForNikAvailability()"
+                            type="nik" 
+                            class="form-control @error('nik') is-invalid @enderror"
+                            :class="{'is_invalid' : this.nik_unavailable}" 
+                            name="nik" 
+                            value="{{ old('nik') }}" 
+                            required
                             autofocus
                           />
                         </div>
                         <div class="form-group">
+                            <span class="required">*</span>
                           <label>Nama</label>
                           <input
                             type="text"
@@ -36,6 +53,7 @@
                           />
                         </div>
                         <div class="form-group">
+                            <span class="required">*</span>
                           <label for="professional_category_id">Profesi</label>
                            <select class="form-control select2" name="professional_category_id" id="professional_category_id" required v-model="professional">
                               <option value="">-Pilih Profesi-</option>
@@ -50,6 +68,7 @@
                               @enderror
                         </div>
                         <div class="form-group">
+                            <span class="required">*</span>
                             <div class="row">
                               <div class="col-md-5">
                                 <label>Tempat</label>
@@ -61,6 +80,7 @@
 
                               </div>
                                <div class="col-md-7">
+                            <span class="required">*</span>
                                 <label>Tgl Lahir</label>
                                 <input
                                   type="date"
@@ -71,6 +91,7 @@
                             </div>
                           </div>
                         <div class="form-group">
+                            <span class="required">*</span>
                           <label>Jenis Kelamin</label>
                            <select name="gender" class="form-control">
                               <option value="1">Pria</option>
@@ -78,30 +99,35 @@
                             </select>
                         </div>
                         <div class="form-group">
+                            <span class="required">*</span>
                           <label for="provinces_id">Provinsi</label>
                           <select id="provinces_id" class="form-control" v-model="provinces_id" v-if="provinces">
                             <option v-for="province in provinces" :value="province.id">@{{ province.name }}</option>
                           </select>
                         </div>
                         <div class="form-group">
+                            <span class="required">*</span>
                           <label for="regencies_id">Kabupaten</label>
                           <select id="regencies_id" class="form-control" v-model="regencies_id" v-if="regencies">
                             <option v-for="regency in regencies" :value="regency.id">@{{ regency.name }}</option>
                           </select>
                         </div>
                         <div class="form-group">
+                            <span class="required">*</span>
                           <label for="districts_id">Kecamatan</label>
                           <select id="districts_id" class="form-control" v-model="districts_id" v-if="districts">
                             <option v-for="district in districts" :value="district.id">@{{ district.name }}</option>
                           </select>
                         </div>
                         <div class="form-group">
+                            <span class="required">*</span>
                           <label for="villages_id">Desa</label>
                           <select name="village_id" id="villages_id" class="form-control" v-model="villages_id" v-if="districts">
                             <option v-for="village in villages" :value="village.id">@{{ village.name }}</option>
                           </select>
                         </div>
                         <div class="form-group">
+                            <span class="required">*</span>
                           <label for="">Alamat</label>
                           <textarea name="address" class="form-control"></textarea>
                         </div>
@@ -120,6 +146,7 @@
                         </div>
 
                          <div class="form-group">
+                            <span class="required">*</span>
                           <label>No. Telp</label>
                           <input
                             type="number"
@@ -160,6 +187,7 @@
                           />
                         </div>
                          <div class="form-group">
+                            <span class="required">*</span>
                           <label>Foto Anggota</label>
                           <input
                             type="file"
@@ -168,6 +196,7 @@
                           />
                         </div>
                          <div class="form-group">
+                            <span class="required">*</span>
                           <label>Foto KTP</label>
                           <input
                             type="file"
@@ -176,6 +205,7 @@
                           />
                         </div>
                         <div class="form-group">
+                            <span class="required">*</span>
                           <label>Email</label>
                           <input id="email" 
                             v-model="email"
@@ -194,6 +224,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <span class="required">*</span>
                           <label>Password</label>
                           <input type="password" name="password" class="form-control" />
                         </div>
@@ -243,7 +274,6 @@
 <script src="{{ asset('vendor/vue/vue.js') }}"></script>
 <script src="https://unpkg.com/vue-toasted"></script>
 <script src="{{ asset('vendor/axios/axios.min.js') }}"></script>
-
 <script>
       Vue.use(Toasted);
 
@@ -328,6 +358,43 @@
                       }
                   );
                   self.email_unavailable = true;
+
+                }
+                  // handle success
+                  console.log(response);
+                });
+          },
+
+          checkForNikAvailability: function(){
+            var self = this;
+            axios.get('{{ route('api-nik-check') }}', {
+              params:{
+                nik:this.nik
+              }
+            })
+              .then(function (response) {
+
+                if(response.data == 'Available'){
+                    self.$toasted.show(
+                        "NIK Anda tersedia, silahkan lanjut langkah selanjutnya!",
+                        {
+                          position: "top-center",
+                          className: "rounded",
+                          duration: 2000,
+                        }
+                    );
+                    self.nik_unavailable = false;
+
+                }else{
+                    self.$toasted.error(
+                      "Maaf, NIK Anda sudah terdaftar pada sistem kami.",
+                      {
+                        position: "top-center",
+                        className: "rounded",
+                        duration: 2000,
+                      }
+                  );
+                  self.nik_unavailable = true;
 
                 }
                   // handle success

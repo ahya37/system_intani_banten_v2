@@ -9,6 +9,7 @@ use App\Cultivators;
 use App\Enterpreneurs;
 use App\AgriculturalGroup;
 use App\Capital;
+use App\Farmer;
 use App\Http\Controllers\Controller;
 use App\Providers\IntaniProvider;
 
@@ -30,6 +31,7 @@ class HomeController extends Controller
         $provider = new IntaniProvider();
 
         $member = $this->getMember();
+        $farmer = Farmer::select('id')->where('member_id', $member->id)->first();
 
         $cultivator      = Cultivators::with('member')->where('member_id', $member->id)->first();
         $enterpreneur    = Enterpreneurs::with('member')->where('member_id', $member->id)->first();
@@ -40,7 +42,7 @@ class HomeController extends Controller
 
         #jika sebagai petani = 1
         if ($member->professional_category_id == 1) {
-                $agriculturalGroup = $agriculturalGroupModel->with(['typeAgricultur','village','capital'])->where('member_id', $member->id)->first();
+                $agriculturalGroup = $agriculturalGroupModel->with(['typeAgricultur','village','capital'])->where('farmer_id', $farmer->id)->first();
 
                 $total_capital     = $capital->getTotalCapital($member->id);
                 if ($agriculturalGroup == null) {

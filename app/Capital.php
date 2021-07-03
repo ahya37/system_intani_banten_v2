@@ -21,7 +21,8 @@ class Capital extends Model
                 + a.fertilizer_costs + a.harvest_costs 
                 + a.other_costs + a.accounts_receivable) as total from capitals as a
                 join agricultural_groups as b on a.agricultural_group_id = b.id 
-                where b.member_id = $memberid ";
+                join farmers  as c on b.farmer_id = c.id 
+                where c.member_id = $memberid ";
         $result = collect(\DB::select($sql))->first();
         return $result;
     }

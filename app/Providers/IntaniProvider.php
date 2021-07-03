@@ -78,4 +78,20 @@ class IntaniProvider extends ServiceProvider
         }
     }
 
+    public function getHarvestPlanningRequest($request, $agriculture_group_id)
+    {
+        $datas = [
+            'agricultural_group_id' => $agriculture_group_id,
+                'step' => $request->step,
+                'type_harvest' => $request->type_harvest,
+                'date' => $request->date,
+                'qty' => $request->qty,
+                'unit' => $request->unit,
+                'estimated_selling_price' => $request->estimated_selling_price,
+                'total_income' => $request->qty * $request->estimated_selling_price
+        ];
+
+        return $datas;
+    }
+
 }

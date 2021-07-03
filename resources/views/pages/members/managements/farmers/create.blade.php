@@ -1,14 +1,14 @@
 @extends('layouts.admin')
-@section('title')
-    Intani Banten
-@endsection
 @push('addon-style')
    <style>
     .required{
         color: red;
     }
-</style>  
+</style> 
 @endpush
+@section('title')
+    Intani Banten
+@endsection
 
 @section('content')
     <!-- Page Content -->
@@ -16,24 +16,11 @@
       <div class="section-store-auth" data-aos="fade-down">
         <div class="container">
           @include('layouts.message')
-          @if($agricultur_group)
-            @foreach ($agricultur_group as $item)
-             <div class="alert alert-warning alert-dismissible fade show" role="alert">
-              Petani atas nama  <strong>{{ $item->farmer->member->name }}</strong> belum memiliki informasi kelompok pertanian
-              <a href="{{ route('member-agricultur-create', $item->farmer->member_id) }}">
-                <i>Lengkapi</i>
-              </a>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            @endforeach
-          @endif
           <div class="card">
             <div class="card-body">
-                <h5 class="mb-3">Identitas Petani</h5>
+                <h5 class="mb-3">Tambah Petani</h5>
               <div class="col-lg-12">
-                <form action="{{ route('member-farmer-save') }}" method="POST" id="register" enctype="multipart/form-data">
+                <form action="{{ route('member-management-farmer-save') }}" method="POST" id="register" enctype="multipart/form-data">
                   @csrf
                   <div class="row row-login">
                     <div class="col-lg-6">
@@ -67,7 +54,7 @@
                         <div class="form-group">
                             <div class="row">
                               <div class="col-md-5">
-                                  <span class="required">*</span>
+                            <span class="required">*</span>
                                 <label>Tempat</label>
                                 <input
                                   type="text"
@@ -77,7 +64,7 @@
 
                               </div>
                                <div class="col-md-7">
-                                   <span class="required">*</span>
+                            <span class="required">*</span>
                                 <label>Tgl Lahir</label>
                                 <input
                                   type="date"
@@ -130,9 +117,8 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-
                          <div class="form-group">
-                             <span class="required">*</span>
+                            <span class="required">*</span>
                           <label>No. Telp</label>
                           <input
                             type="number"
@@ -141,7 +127,6 @@
                           />
                         </div>
                         <div class="form-group">
-                            <span class="required">*</span>
                           <label>No. Whatsapp</label>
                           <input
                             type="number"
@@ -174,8 +159,8 @@
                           />
                         </div>
                          <div class="form-group">
-                             <span class="required">*</span>
-                          <label>Foto Anggota</label>
+                            <span class="required">*</span>
+                          <label>Foto Petani</label>
                           <input
                             type="file"
                             name="photo"
@@ -183,7 +168,7 @@
                           />
                         </div>
                          <div class="form-group">
-                             <span class="required">*</span>
+                            <span class="required">*</span>
                           <label>Foto KTP</label>
                           <input
                             type="file"
@@ -191,7 +176,7 @@
                             class="form-control"
                           />
                         </div>
-                         <div class="form-group">
+                        <div class="form-group">
                           <label>Foto Kartu Keluarga</label>
                           <input
                             type="file"
@@ -204,7 +189,7 @@
                       type="submit"
                         class="btn btn-try custom-button text-white  btn-block w-00 mt-4"
                       >
-                        Simpan dan Lanjutkan
+                        Daftar
                     </button>
                   </div>
                 </form>
@@ -215,11 +200,36 @@
       </div>
     </div>
 @endsection
+@push('prepend-script')
+    <div class="modal" id="addCdCat" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Buat Kelompok Pertanian</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ route('add.agricultur') }}" method="POST">
+            @csrf
+            <div class="form-group">
+                <label>Nama Kelompok Pertanian</label>
+                <input type="text" name="name" class="form-control form-control-sm" placeholder="Talas, Jahe, Porang, dll..">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-sm custom-button btn-success">Simpan</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+@endpush
 @push('addon-script')
 <script src="{{ asset('vendor/vue/vue.js') }}"></script>
 <script src="https://unpkg.com/vue-toasted"></script>
 <script src="{{ asset('vendor/axios/axios.min.js') }}"></script>
-
 <script>
       Vue.use(Toasted);
 

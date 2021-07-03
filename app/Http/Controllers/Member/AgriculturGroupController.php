@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Member;
 
 use App\HarvestPlanning;
 use App\AgriculturalGroup;
+use App\Farmer;
 use Illuminate\Http\Request;
+use App\Providers\IntaniProvider;
 use App\Http\Controllers\Controller;
 
 class AgriculturGroupController extends Controller
@@ -19,14 +21,22 @@ class AgriculturGroupController extends Controller
                 $photo_area = $request->file('photo_area')->store('assets/member/photo/agriculturgrup','public');
             }
 
-            $data = $this->getAgriculturRequest($request, $photo_area, $photo_proof);
+            // simpan ke tb farmer / petani
+            $dataFarmer['member_id'] = auth()->guard('member')->user()->id;
+            $savefarmer =  Farmer::create($dataFarmer);
+            $farmer     = $savefarmer->id;
+
+            $data = $this->getAgriculturRequest($request, $photo_area, $photo_proof, $farmer);
             
             $agriculture_group =  AgriculturalGroup::create($data);
             $agriculture_group_id = $agriculture_group->id;
 
             // menyimpan ke table perencanaan panen
-            $datas = $this->getHarvestPlanningRequest($request, $agriculture_group_id);
+            $intaniProvider = new IntaniProvider();
+            $datas = $intaniProvider->getHarvestPlanningRequest($request, $agriculture_group_id);
             HarvestPlanning::create($datas);
+
+            
         }else{
 
              if ($request->hasFile('photo_area')) {
@@ -34,23 +44,29 @@ class AgriculturGroupController extends Controller
                 $photo_proof = NULL;
             }
 
-            $data = $this->getAgriculturRequest($request, $photo_area, $photo_proof);
+             // simpan ke tb farmer / petani
+            $dataFarmer['member_id'] = auth()->guard('member')->user()->id;
+            $savefarmer =  Farmer::create($dataFarmer);
+            $farmer     = $savefarmer->id;
+
+            $data = $this->getAgriculturRequest($request, $photo_area, $photo_proof, $farmer);
 
             $agriculture_group =  AgriculturalGroup::create($data);
             $agriculture_group_id = $agriculture_group->id;
 
            // menyimpan ke table perencanaan panen
-            $datas = $this->getHarvestPlanningRequest($request, $agriculture_group_id);
+            $intaniProvider = new IntaniProvider();
+            $datas = $intaniProvider->getHarvestPlanningRequest($request, $agriculture_group_id);
             HarvestPlanning::create($datas);
         }
 
         return redirect()->route('member-next-management')->with(['success' => 'Kelompok pertanian telah di tambahkan']);
     }
 
-    public function getAgriculturRequest($request, $photo_area, $photo_proof)
+    public function getAgriculturRequest($request, $photo_area, $photo_proof, $farmer)
     {
         $data = [
-                'member_id' => auth()->guard('member')->user()->id,
+                'farmer_id' => $farmer,
                 'type_of_agriculture_id' => $request->type_of_agriculture_id,
                 'land_area' => $request->land_area,
                 'address_area' => $request->address_area,
@@ -68,22 +84,6 @@ class AgriculturGroupController extends Controller
                 'status' => 'PERSONAL',
         ];
         return $data;
-    }
-
-    public function getHarvestPlanningRequest($request, $agriculture_group_id)
-    {
-        $datas = [
-            'agricultural_group_id' => $agriculture_group_id,
-                'step' => $request->step,
-                'type_harvest' => $request->type_harvest,
-                'date' => $request->date,
-                'qty' => $request->qty,
-                'unit' => $request->unit,
-                'estimated_selling_price' => $request->estimated_selling_price,
-                'total_income' => $request->qty * $request->estimated_selling_price
-        ];
-
-        return $datas;
     }
 
 }

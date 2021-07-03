@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Member;
 
 use App\AgriculturalGroup;
+use App\Farmer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Manager;
@@ -50,7 +51,8 @@ class ManagerController extends Controller
 
     public function getUpdateStatusManagement($member_id)
     {
-        $agriculturGroup =  AgriculturalGroup::where('member_id', $member_id)->first();
+        $farmer = Farmer::where('member_id', $member_id)->first();
+        $agriculturGroup =  AgriculturalGroup::where('farmer_id', $farmer->id)->first();
         $agriculturGroup->update(['status_management' => 1]);
         return $agriculturGroup;
     }

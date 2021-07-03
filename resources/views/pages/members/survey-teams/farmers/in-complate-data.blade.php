@@ -15,10 +15,15 @@
               <div class="card mb-2 shadow p-3 bg-light rounded">
                 <div class="card-body">
                   <div class="dashboard-card-title">
-                    Silahkan lengkapi informasi data survei Anda atas nama 
-                    <b>
-                      {{ $agricultur_group->member->name }}
-                    </b>
+                    <p>
+                      Mohon maaf, untuk membuat data baru, Anda harus melengkapi atau meyelesaikan data sebelumnya
+                    </p>
+                    <p>
+                      Silahkan lengkapi informasi data survei Anda atas nama 
+                      <b>
+                        {{ $agricultur_group->member->name }}
+                      </b>
+                    </p>
                   </div>
                   <div class="dashboard-card-subtitle">
                     <a

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Member;
 
-use App\AgriculturalGroup;
-use App\Capital;
+use App\Farmer;
 use App\Member;
+use App\Capital;
+use App\Management;
+use App\AgriculturalGroup;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Management;
 
 class CapitalController extends Controller
 {
@@ -30,7 +31,8 @@ class CapitalController extends Controller
         $getId       = $memberModel->getManagerIdAndInvestorIdByMemberId($member_id);
 
         // get agricultural_group id berdasarkan member dan status_capital = 0
-        $agricultur  = AgriculturalGroup::select('id','status_capital')->where('member_id', $member_id)->where('status_capital',0)->first();
+        $farmer = Farmer::where('member_id', $member_id)->first();
+        $agricultur  = AgriculturalGroup::select('id','status_capital')->where('farmer_id', $farmer->id)->where('status_capital',0)->first();
        
         $data['investor_id'] = $getId->investor_id;
         $data['manager_id']  = $getId->manager_id;
@@ -40,9 +42,20 @@ class CapitalController extends Controller
         // menyimpan ke tabel management
         $management = Management::create($data);
 
-        $dataCapital= $request->all();
-        $dataCapital['management_id'] = $management->id;
-        $dataCapital['agricultural_group_id'] = $agricultur->id;
+        $dataCapital = [
+                'cost_of_seeds' => $request->cost_of_seeds == null ? 0 : $request->cost_of_seeds,
+                'rental_cost' => $request->rental_cost == null ? 0 : $request->rental_cost,
+                'material_processing_costs' => $request->planting_costs == null ? 0 : $request->planting_costs,
+                'planting_costs' => $request->planting_costs == null ? 0 : $request->planting_costs,
+                'maintenance_cost' => $request->maintenance_cost == null ? 0 : $request->maintenance_cost,
+                'fertilizer_costs' => $request->fertilizer_costs == null ? 0 : $request->fertilizer_costs,
+                'harvest_costs' => $request->harvest_costs == null ? 0 : $request->harvest_costs,
+                'other_costs' => $request->other_costs == null ? 0 : $request->other_costs,
+                'accounts_receivable' => $request->accounts_receivable == null ? 0 : $request->accounts_receivable,
+                'management_id' => $management->id,
+                'agricultural_group_id' => $agricultur->id
+            ];
+        
         // menyimpan permodalan
         Capital::create($dataCapital);
 

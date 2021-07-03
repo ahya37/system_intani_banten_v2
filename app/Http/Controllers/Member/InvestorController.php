@@ -2,14 +2,40 @@
 
 namespace App\Http\Controllers\Member;
 
+use App\Farmer;
 use App\Member;
 use App\Investor;
 use App\AgriculturalGroup;
 use Illuminate\Http\Request;
+use App\Providers\IntaniProvider;
 use App\Http\Controllers\Controller;
 
 class InvestorController extends Controller
 {
+    public function index()
+    {
+        // get manager_id berdasarkan member_id login
+        // get management berdasarkan 
+        $manager = $this->getMember();
+        $investorModel = new Investor();
+        $investor      = $investorModel->getInvestorByManagement($manager);
+        $no = 1;
+        
+        return view('pages.members.managements.investors.index', compact('no','investor'));
+    }
+
+    public function farmerByInvestor($investor_id)
+    {
+        $investorModel = new Investor();
+        $investor      = $investorModel->getNameInvestor($investor_id);
+        $farmer        = $investorModel->getFarmerByInvestor($investor_id);
+        $provider = new IntaniProvider();
+
+        return view('pages.members.managements.investors.detail-farmer', compact('investor','farmer','investorModel','provider'));
+
+        
+    }
+
     public function nextInvestor()
     {
         return view('pages.members.next-investor');
@@ -45,14 +71,14 @@ class InvestorController extends Controller
         }
 
         // next ke permodalan
-
         return redirect()->route('member-next-capital')->with(['success' => 'Pemdoal telah dibuat']);;
     
     }
 
      public function getUpdateStatusInvestor($member_id)
     {
-        $agriculturGroup =  AgriculturalGroup::where('member_id', $member_id)->first();
+        $farmer = Farmer::where('member_id', $member_id)->first();
+        $agriculturGroup =  AgriculturalGroup::where('farmer_id', $farmer->id)->first();
         $agriculturGroup->update(['status_investor' => 1]);
         return $agriculturGroup;
     }

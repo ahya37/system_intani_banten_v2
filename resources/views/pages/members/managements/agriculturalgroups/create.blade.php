@@ -17,24 +17,21 @@
           @include('layouts.message')
           <div class="card">
             <div class="card-body">
-                <h5>Kelompok Pertanian</h5>
+                <h5 class="mb-4">Kelompok Pertanian</h5>
               <div class="col-lg-12">
-                <form action="{{ route('member-agricultur-save') }}" method="POST" id="register" enctype="multipart/form-data">
+                <form action="{{ route('member-management-agriculturalgroup-save') }}" method="POST" id="register" enctype="multipart/form-data">
                   @csrf
                   <div class="row row-login">
                     <div class="col-lg-6">
-                      <div class="form-group">
-                            <label>Petani</label>
-                            <input type="hidden" name="farmer_id" value="{{ $agricultur_group->farmer_id }}">
-                            <input
-                                  type="text"
-                                  class="form-control"
-                                  readonly
-                                  value="{{ $agricultur_group->farmer->member->name }}"
-                                />
+                         <div class="form-group">
+                            <span class="required">*</span>
+                          <label for="farmer_id">Petani</label>
+                          <select id="farmer_id" name="farmer_id" class="form-control" v-model="farmer_id" v-if="farmers">
+                            <option v-for="farmer in farmers" :value="farmer.id">@{{ farmer.member.name }}</option>
+                          </select>
                         </div>
                         <div class="form-group">
-                          <span class="required">*</span>
+                            <span class="required">*</span>
                           <label>Jenis Pertanian</label>
                           <select id="type_of_agriculture_id" name="type_of_agriculture_id" class="form-control" v-model="type_of_agriculture_id" v-if="type_of_agricultures">
                             <option v-for="type_of_agriculture in type_of_agricultures" :value="type_of_agriculture.id">@{{ type_of_agriculture.name_type }}</option>
@@ -284,6 +281,7 @@
           AOS.init();
           this.getProvincesData();
           this.getTypeOfAgricultur();
+          this.getFarmerData()
         },
         data(){
           return  {
@@ -291,6 +289,8 @@
             regencies: null,
             districts: null,
             villages:null,
+            farmers: null,
+            farmer_id: null,
             provinces_id: null,
             regencies_id: null,
             districts_id: null,
@@ -300,6 +300,14 @@
           }
         },
         methods:{
+          getFarmerData(){
+              var self = this;
+              axios.get('{{ route('member-management-farmer-api') }}')
+              .then(function(response){
+                  self.farmers = response.data
+              })
+          },
+
           getTypeOfAgricultur(){
             var self = this;
             axios.get('{{ route('api-typeofagricultur') }}')
