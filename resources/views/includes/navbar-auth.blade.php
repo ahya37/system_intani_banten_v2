@@ -18,6 +18,8 @@
             @include('includes.navbar-menu-survey-team-management')
             @elseif (auth()->guard('member')->user()->roles_survey_team == 2)
             @include('includes.navbar-menu-survey-team')
+            @elseif (auth()->guard('member')->user()->roles_manager == 1)
+            @include('includes.navbar-menu-survey-team-management')
             @else
             @include('includes.navbar-menu-member-only')
             @endif

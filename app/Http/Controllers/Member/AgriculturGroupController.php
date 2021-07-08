@@ -8,9 +8,16 @@ use App\Farmer;
 use Illuminate\Http\Request;
 use App\Providers\IntaniProvider;
 use App\Http\Controllers\Controller;
+use App\TypeOfAgricultur;
 
 class AgriculturGroupController extends Controller
 {
+    public function getMember()
+    {
+        $member = auth()->guard('member')->user()->id;
+        return $member;
+    }
+
     public function store(Request $request)
     {
         
@@ -84,6 +91,42 @@ class AgriculturGroupController extends Controller
                 'status' => 'PERSONAL',
         ];
         return $data;
+    }
+
+    public function index()
+    {
+        $member = $this->getMember();
+        $agricultureGroupModel = new AgriculturalGroup();
+        $agriculture_group     = $agricultureGroupModel->getAgriculturGroupByManagement($member);
+        $provider = new IntaniProvider();
+
+        // mengambil total total nominal dan biaya
+        $getTotal = $agricultureGroupModel->getTotalAgriculturGroupByManagement($member);
+
+        // persentasi total
+        $persentage = [];
+        foreach ($agriculture_group as $val) {
+            $persentage[] = ($val->total_biaya/$getTotal->total_all_biaya) * 100;
+        }
+
+        $total_persentage = array_sum($persentage);
+
+        return view('pages.members.managements.agriculturalgroups.index', compact('agriculture_group','provider','getTotal','total_persentage'));
+    }
+
+    public function detailFarmerByAgriculturGroupId($type_of_agriculture_id)
+    {
+        $provider = new IntaniProvider();
+        $no_type = 1;
+        $no_farmer = 1;
+
+        $agricultureGroupModel = new AgriculturalGroup();
+        $type_of_agriculture   = TypeOfAgricultur::select('name_type')->where('id', $type_of_agriculture_id)->first();
+        $name_type             = $type_of_agriculture->name_type;
+        
+        $detailFarmer          = $agricultureGroupModel->detailFarmerByAgriculturGroupId($type_of_agriculture_id);
+
+        return view('pages.members.managements.agriculturalgroups.detail-farmer', compact('name_type','detailFarmer','agricultureGroupModel','provider','no_type','no_farmer'));
     }
 
 }

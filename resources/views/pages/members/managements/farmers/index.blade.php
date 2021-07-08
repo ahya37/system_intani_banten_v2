@@ -18,7 +18,7 @@
                 <div class="col-md-12">
                   <div class="card mb-2 shadow bg-white rounded">
                       <div class="card-body">
-                        <h6 class="mb-4">Data Investor</h6>
+                        <h6 class="mb-4">Data Petani</h6>
                       </div>
                       <div class="col-md-12">
                           <div class="table-responsive">
@@ -26,24 +26,28 @@
                               <thead>
                                   <tr>
                                   <th scope="col">No</th>
-                                  <th scope="col">Investor</th>
-                                  <th scope="col">Jenis Pengelola</th>
-                                  <th scope="col">Nama Instansi</th>
+                                  <th scope="col">Foto</th>
+                                  <th scope="col">Nama</th>
+                                  <th scope="col">Alamat</th>
+                                  <th scope="col">No. Telp</th>
                                   <th scope="col">Pilihan</th>
                                   </tr>
                               </thead>
                               <tbody>
-                                  @foreach ($investor as $row)
-                                      <tr>
-                                          <td>{{ $no++ }}</td>
-                                          <td>{{ $row->investor }}</td>
-                                          <td>{{ $row->type_management }}</td>
-                                          <td>{{ $row->name_agency }}</td>
-                                          <td>
-                                              <a href="{{ route('member-management-investor-farmer', $row->investor_id) }}" class="btn btn-sm custom-button text-white">Petani</a>
+                                 @foreach ($farmer as $row)
+                                 <tr>
+                                     <td>{{ $no++ }}</td>
+                                     <td>
+                                         <img src="" width="50" alt="{{ $row->farmer_name }}">
+                                     </td>
+                                     <td>{{ $row->farmer_name }}</td>
+                                     <td>{{'Ds'.$row->village.', Kec.'.$row->district. ' ,'. $row->regency }}</td>
+                                     <td>{{ $row->phone_number }}</td>
+                                     <td>
+                                              <a href="" class="btn btn-sm custom-button text-white">Detail</a>
                                           </td>
-                                      </tr>
-                                  @endforeach
+                                 </tr>                                     
+                                 @endforeach
                               </tbody>
                               </table>
                           </div>

@@ -17,7 +17,7 @@ use App\Manager;
 
 class ManagementController extends Controller
 {
-     public function getMember()
+    public function getMember()
     {
         $member = auth()->guard('member')->user()->id;
         return $member;

@@ -30,10 +30,11 @@
                       <a href="{{ route('register-member') }}"
                         class="btn d-inline-flex mb-md-0 w-100 btn-try text-white mr-2 mb-2"
                       >
-                        Daftar Anggota
+                        Daftar Menjadi Anggota
                       </a>
-                      {{-- <a
-                        class="btn d-inline-flex mb-md-0  w-100 btn-try text-white mr-2 mb-2"
+                      <a
+                       href="{{ route('register-management') }}"
+                        class="btn d-inline-flex mb-md-0 w-100 btn-try text-white mr-2 mb-2"
                       >
                         Daftar Menjadi Pengelola
                       </a>
@@ -41,7 +42,7 @@
                         class="btn d-inline-flex mb-md-0  w-100 btn-try text-white mr-2 mb-2"
                       >
                         Daftar Menjadi Investor
-                      </a> --}}
+                      </a>
                     </div>
                   </div>
                   <!-- Right Column -->

@@ -21,6 +21,9 @@ Route::post('/typeagricultur/add','FrontController@addTypeAgricultur')->name('ad
 Route::post('/register/member/store','FrontController@processRegisterMember')->name('register.member.store');
 Route::get('verify/{token}', 'FrontController@verifyMemberRegistration')->name('member.verify');
 
+Route::get('/register/management','FrontController@registerManagement')->name('register-management');
+Route::post('/register/management/store','FrontController@saveRegisterManagement')->name('register.management.store');
+
 Route::get('success/submission/{code}', 'Member\SurveyTeamController@successAproveSubmission')->name('succes-aprove-submission');
 
 Route::group(['prefix' => 'member','namespace' => 'Member'], function(){
@@ -91,16 +94,20 @@ Route::group(['prefix' => 'member','namespace' => 'Member'], function(){
 			Route::get('invstore/farmer/{investor_id}','InvestorController@farmerByInvestor')->name('member-management-investor-farmer');
 
 			// petani
+			Route::get('farmer/index','FarmerController@index')->name('member-management-farmer-index');
 			Route::get('farmer/create','ManagementController@createFarmer')->name('member-management-farmer-create');
 			Route::post('farmer/save','ManagementController@saveFarmer')->name('member-management-farmer-save');
 
 			// kelompok pertanain
+			Route::get('agriculturalgroup/index','AgriculturGroupController@index')->name('member-management-agriculturalgroup-index');
 			Route::get('agriculturalgroup/create','ManagementController@createAgriculturGroup')->name('member-management-agriculturalgroup-create');
 			Route::post('agriculturalgroup/save','ManagementController@saveAgriculturGroup')->name('member-management-agriculturalgroup-save');
+			Route::get('agriculturalgroup/detailfarmer/{type_of_agriculture_id}','AgriculturGroupController@detailFarmerByAgriculturGroupId')->name('member-management-agriculturalgroup-farmerbyagricultur');
 
 			// permodalan
 			Route::get('capital/create','ManagementController@createCapital')->name('member-management-capital-create');
 			Route::post('capital/save','ManagementController@saveCapital')->name('member-management-capital-save');
+			
 
 
 		});

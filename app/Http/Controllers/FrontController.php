@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Member;
 use App\Mail\IntaniMail;
+use App\Management;
+use App\Manager;
 use App\TypeOfAgricultur;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -74,6 +76,28 @@ class FrontController extends Controller
 
     public function registerManagement()
     {
-        
+        return view('auth.register-management');
+    }
+
+    public function saveRegisterManagement(Request $request)
+    {
+        if ($request->hasFile('photo')){
+            $data = $request->all();
+            $data['activate_token']     = Str::random(10);
+            $data['password']           = Hash::make($request->password);
+            $data['base_id']            = 2;
+            $data['photo'] = $request->file('photo')->store('assets/member/photo','public');
+            $data['photo_idcard'] = $request->file('photo_idcard')->store('assets/member/photo-idcard','public');
+            $data['photo_family_card'] = $request->file('photo_family_card')->store('assets/member/photo_family_card','public');
+            $data['roles_manager'] = 1;
+            
+            $member    =  Member::create($data);
+            Mail::to($request->email)->send(new IntaniMail($member));
+
+            // simpan ke tb manager_sebagai mangement
+            Manager::create(['member_id' => $member->id]);
+
+        }
+        return redirect(route('login'))->with(['success' => 'Pendaftaran berhasil, silahkan cek email Anda untuk verifikasi Akun']);
     }
 }

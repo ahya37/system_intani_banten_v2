@@ -49,7 +49,7 @@
               >
                 <a
                   class="dropdown-item"
-                  href=""
+                  href="{{ route('member-management-farmer-index') }}"
                 >
                   Data Petani
                 </a>
@@ -79,7 +79,7 @@
               >
                 <a
                   class="dropdown-item"
-                  href=""
+                  href="{{ route('member-management-agriculturalgroup-index') }}"
                 >
                   Data Kelompok Pertanian
                 </a>
@@ -151,7 +151,7 @@
                 </a>
               </div>
             </li>
-<li class="nav-item dropdown">
+            <li class="nav-item dropdown">
                <a
                  class="nav-link active dropdown-toggle"
                  href="#"
@@ -204,8 +204,8 @@
                    Permodalan
                  </a>
                </div>
-</li>
-<li class="nav-item dropdown">
+            </li>
+            <li class="nav-item dropdown">
               <a
                 href="#"
                 class="nav-link"

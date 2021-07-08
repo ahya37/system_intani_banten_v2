@@ -65,7 +65,7 @@ class HomeController extends Controller
         }else{
             #jika sebagai akademisi = 4
             #jika sebagai tokoh = 3
-            return view('pages.members.dashboard');
+            return view('pages.members.dashboard-management');
         }
     }
 

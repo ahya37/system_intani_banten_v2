@@ -17,9 +17,9 @@
         <div class="container">
           <div class="card">
             <div class="card-body">
-              <h5 class="mb-3">Daftar Anggota Intani Banten</h5>
+              <h5 class="mb-3">Daftar Pengelola Intani Banten</h5>
               <div class="col-lg-12">
-                <form action="{{ route('register.member.store') }}" method="POST" id="register" enctype="multipart/form-data">
+                <form action="{{ route('register.management.store') }}" method="POST" id="register" enctype="multipart/form-data">
                   @csrf
                   <div class="row row-login">
                     <div class="col-lg-6">
@@ -49,21 +49,6 @@
                             name="name"
                             class="form-control"
                           />
-                        </div>
-                        <div class="form-group">
-                            <span class="required">*</span>
-                          <label for="professional_category_id">Profesi</label>
-                           <select class="form-control select2" name="professional_category_id" id="professional_category_id" required v-model="professional">
-                              <option value="">-Pilih Profesi-</option>
-                              @foreach ($professional_category as $row)
-                              <option value="{{ $row->id }}">{{ $row->name }}</option>
-                              @endforeach
-                              </select>
-                              @error('professional_category_id')
-                              <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                              </span>
-                              @enderror
                         </div>
                         <div class="form-group">
                             <span class="required">*</span>
@@ -131,18 +116,6 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="form-group">
-                          <label>Minat Sebagai</label>
-                            <sup>(Tidak Wajib)</sup>
-                           <select name="interest" class="form-control">
-                             <option value="">-Pilih-</option>
-                             <option value="Investor">Investor</option>
-                             <option value="Nelayan">Nelayan</option>
-                             <option value="Pembudidaya">Pembudidaya</option>
-                             <option value="Petani">Petani</option>
-                            </select>
-                        </div>
-
                          <div class="form-group">
                             <span class="required">*</span>
                           <label>No. Telp</label>
@@ -191,6 +164,7 @@
                             type="file"
                             name="photo"
                             class="form-control"
+                            required
                           />
                         </div>
                          <div class="form-group">
@@ -200,6 +174,17 @@
                             type="file"
                             name="photo_idcard"
                             class="form-control"
+                            required
+                          />
+                        </div>
+                        <div class="form-group">
+                            <span class="required">*</span>
+                          <label>Foto Kartu Keluarga</label>
+                          <input
+                            type="file"
+                            name="photo_family_card"
+                            class="form-control"
+                            required
                           />
                         </div>
                         <div class="form-group">
