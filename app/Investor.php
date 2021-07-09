@@ -47,7 +47,7 @@ class Investor extends Model
                     ->get();
     }
 
-    public function getDetailAgricultur($farmer_id, $investor_id)
+    public function getDetailAgricultur($farmer_id)
     {
         $sql = " SELECT a.land_area, a.farmer_id, c.id as capital_id, a.id, b.name_type, c.date as tgl_tanam, a.number_of_seeds, d.name as village,
                 e.name as district, f.name as regency, a.type_of_seed, a.number_of_seeds, a.unit,
@@ -57,13 +57,13 @@ class Investor extends Model
                 +g.other_costs+g.accounts_receivable) as total_biaya 
                 from agricultural_groups as a
                 join type_of_agriculturs as b on a.type_of_agriculture_id = b.id
-                join harvest_plannings as c on a.id = c.agricultural_group_id
+                left join harvest_plannings as c on a.id = c.agricultural_group_id
                 join villages as d on a.village_id = d.id
                 join districts as e on d.district_id = e.id
                 join regencies as f on e.regency_id = f.id
                 join capitals as g on a.id = g.agricultural_group_id
                 join managements as h on g.management_id = h.id
-                where a.farmer_id = $farmer_id and h.investor_id = $investor_id
+                where a.farmer_id = $farmer_id
                 GROUP BY a.land_area, a.farmer_id ,c.id, b.name_type, a.id, c.date, a.number_of_seeds, d.name, e.name, f.name, a.type_of_seed,
                 a.number_of_seeds, a.unit ";
         $result = DB::select($sql);

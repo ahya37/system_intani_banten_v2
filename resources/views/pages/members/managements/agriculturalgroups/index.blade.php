@@ -60,7 +60,7 @@
                                 @endforeach
                               </tbody>
                               <tfoot>
-                                <tr class="bg-warning">
+                                <tr style="background-color: #0e7d7d" class="text-white">
                                     <td><b>Total</b></td>
                                     <td align="right"><b>{{$provider->decimalFormat($getTotal->total_luas_lahan)}}</b></td>
                                     <td align="right"><b>{{$provider->decimalFormat($getTotal->total_kg)}}</b></td>

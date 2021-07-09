@@ -78,7 +78,7 @@
                                     $type_of_agriculture_id = $farmer->type_of_agriculture_id;
                                     $total   = $agricultureGroupModel->getTotalAgriculturGroupByFarmer($farmer_id, $type_of_agriculture_id);
                                 @endphp
-                                  <tr class="bg-warning">
+                                  <tr style="background-color: #0e7d7d" class="text-white">
                                                   <td colspan=""><b>Jumlah</b></td>
                                                   <td colspan="" align="right"><b>{{$provider->decimalFormat($total->luas_lahan)}}</b></td>
                                                   <td></td>
