@@ -45,7 +45,7 @@
                               $detail = $agricultureGroupModel->getAgriculturGroupByFarmer($farmer_id, $type_of_agriculture_id);                              
                           @endphp
                           <div class="">
-                             <table class="display table table-sm table-striped table-bordered">
+                             <table class="display table table-sm table-striped table-bordered" style="font-size: 12px">
                               <thead>
                                  <tr class="text-center">
                                                 <th rowspan="2">NO</th>

@@ -47,7 +47,7 @@
                                 </tbody>
                                 <tfoot>
                                   
-                                  <tr class="bg-warning">
+                                  <tr style="background-color: #0e7d7d" class="text-white">
                                     <td colspan="2">Total</td>
                                     <td colspan="1" class="text-right">{{$provider->decimalFormat($total_capital->total) }}</td>
                                     <td></td>
