@@ -109,7 +109,7 @@
               >
                 <a
                   class="dropdown-item"
-                  href=""
+                  href="{{ route('member-management-capital-index') }}"
                 >
                   Data Permodalan
                 </a>

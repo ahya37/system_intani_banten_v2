@@ -92,7 +92,6 @@
                                             $investor_id  = $row->investor_id;
                                             $jumlah_total          = $investorModel->getJumlahTotal($farmer_id,$investor_id);
                                         @endphp
-                                        @endforeach
                                         <tr style="background-color: #0e7d7d" class="text-white">
                                             <td colspan=""><b>JUMLAH</b></td>
                                             <td colspan="2" align="right"><b>{{$provider->decimalFormat($jumlah_total->luas_lahan) }}</b></td>
@@ -102,6 +101,7 @@
                                             <td colspan="1" align="right">{{$provider->decimalFormat($jumlah_total->total_biaya) }}</b></td>
                                             <td></td>
                                         </tr>
+                                        @endforeach
                                     </tbody>
                                     </table>
                              </div>

@@ -34,7 +34,7 @@ class Investor extends Model
     {
         return DB::table('managements as a')
                     ->join('investors as b','a.investor_id','=','b.id')
-                    ->join('capitals as c','a.id','=','c.management_id')
+                    ->leftJoin('capitals as c','a.id','=','c.management_id')
                     ->join('agricultural_groups as d','c.agricultural_group_id','=','d.id')
                     ->join('farmers as e','d.farmer_id','=','e.id')
                     ->join('members as f','e.member_id','=','f.id')

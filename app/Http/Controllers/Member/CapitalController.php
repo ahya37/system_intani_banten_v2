@@ -8,10 +8,25 @@ use App\Capital;
 use App\Management;
 use App\AgriculturalGroup;
 use Illuminate\Http\Request;
+use App\Providers\IntaniProvider;
 use App\Http\Controllers\Controller;
 
 class CapitalController extends Controller
 {
+    public function index()
+    {
+        $manager = $this->getMember();
+        $capitalModel = new Capital();
+        $capital      = $capitalModel->getInvestorAndCapitalByManagement($manager);
+        $total_capital      = $capitalModel->getInvestorAndTotalCapitalByManagement($manager);
+        $no = 1;
+        $provider = new IntaniProvider();
+
+
+        return view('pages.members.managements.capitals.index', compact('capital','no','provider','total_capital'));
+
+
+    }
     public function createPersonal()
     {
         return view('pages.members.next-capital');

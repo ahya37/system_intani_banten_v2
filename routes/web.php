@@ -107,6 +107,7 @@ Route::group(['prefix' => 'member','namespace' => 'Member'], function(){
 			// permodalan
 			Route::get('capital/create','ManagementController@createCapital')->name('member-management-capital-create');
 			Route::post('capital/save','ManagementController@saveCapital')->name('member-management-capital-save');
+			Route::get('capital/index','CapitalController@index')->name('member-management-capital-index');
 			
 
 
