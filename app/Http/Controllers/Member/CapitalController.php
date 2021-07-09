@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Member;
 use App\Farmer;
 use App\Member;
 use App\Capital;
+use App\Investor;
 use App\Management;
 use App\AgriculturalGroup;
 use Illuminate\Http\Request;
@@ -78,5 +79,16 @@ class CapitalController extends Controller
         $agricultur->update(['status_capital' => 1]);
 
         return redirect()->route('member-dashboard')->with(['success' => 'Informasi profesi Anda telah tersimpan']);
+    }
+
+    public function detailCapital($investor_id)
+    {
+        $investorModel = new Investor();
+        $capitalModel  = new Capital();
+        $investor      = $investorModel->getNameInvestor($investor_id);
+        $farmer        = $investorModel->getFarmerByInvestor($investor_id);
+        $provider = new IntaniProvider();
+        $no = 1;
+        return view('pages.members.managements.capitals.detail',compact('investor','farmer','investorModel','provider','capitalModel','no'));
     }
 }

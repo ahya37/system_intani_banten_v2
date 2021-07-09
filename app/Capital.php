@@ -55,8 +55,40 @@ class Capital extends Model
                 from managements as a
                 join managers as d on a.manager_id = d.id
                 left join capitals as e on a.id = e.management_id 
-                where d.member_id = $manager ";
+                where d.member_id = $manager";
         $result = collect(\DB::select($sql))->first();
+        return $result;
+    }
+
+    public function getTotalCapitalByAgriculturGroup($farmer_id, $investor_id)
+    {
+        $sql = "SELECT
+                SUM(b.cost_of_seeds + b.rental_cost + b.material_processing_costs
+                                + b.planting_costs + b.maintenance_cost
+                                + b.fertilizer_costs + b.harvest_costs 
+                                + b.other_costs + b.accounts_receivable) as total, d.name_type from managements as a
+                join capitals as b on a.id = b.management_id
+                join agricultural_groups as c on b.agricultural_group_id = c.id
+                join type_of_agriculturs as d on c.type_of_agriculture_id = d.id
+                where a.investor_id = $investor_id and c.farmer_id = $farmer_id
+                GROUP by d.name_type ";
+
+        $result = DB::select($sql);
+        return $result;
+    }
+
+    public function getTotalByInvestor($farmer_id, $investor_id)
+    {
+        $sql = "SELECT
+                SUM(b.cost_of_seeds + b.rental_cost + b.material_processing_costs
+                                + b.planting_costs + b.maintenance_cost
+                                + b.fertilizer_costs + b.harvest_costs 
+                                + b.other_costs + b.accounts_receivable) as total
+                                from managements as a
+                join capitals as b on a.id = b.management_id
+                join agricultural_groups as c on b.agricultural_group_id = c.id
+                where a.investor_id = $investor_id and c.farmer_id = $farmer_id" ;
+        $result = DB::select($sql);
         return $result;
     }
 }

@@ -36,11 +36,13 @@
                                       <tr>
                                           <td>{{ $no++ }}</td>
                                           <td>{{ $row->investor_name }}</td>
-                                          <td align="right">{{$provider->decimalFormat($row->total) }}</td>
+                                          <td align="right">
+                                            <a href="{{ route('member-management-capital-detail', $row->investor_id) }}">
+                                              {{$provider->decimalFormat($row->total) }}
+                                            </a>
+                                          </td>
                                           <td>
-                                              <a href="#" class="btn btn-sm custom-button text-white">Petani</a>
-
-                                              {{-- <a href="{{ route('member-management-investor-farmer', $row->investor_id) }}" class="btn btn-sm custom-button text-white">Petani</a> --}}
+                                              <a href="{{ route('member-management-capital-detail', $row->investor_id) }}" class="btn btn-sm custom-button text-white">Petani</a>
                                           </td>
                                       </tr>
                                   @endforeach

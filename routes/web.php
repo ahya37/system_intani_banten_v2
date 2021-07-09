@@ -108,6 +108,7 @@ Route::group(['prefix' => 'member','namespace' => 'Member'], function(){
 			Route::get('capital/create','ManagementController@createCapital')->name('member-management-capital-create');
 			Route::post('capital/save','ManagementController@saveCapital')->name('member-management-capital-save');
 			Route::get('capital/index','CapitalController@index')->name('member-management-capital-index');
+			Route::get('capital/detail/{investor_id}','CapitalController@detailCapital')->name('member-management-capital-detail');
 			
 
 

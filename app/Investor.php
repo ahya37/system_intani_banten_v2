@@ -43,6 +43,7 @@ class Investor extends Model
                     ->join('regencies as i','h.regency_id','=','i.id')
                     ->select('f.name as farmer_name','e.id as farmer_id','g.name as village','h.name as district','i.name as regency','b.id as investor_id')
                     ->groupBy('f.name','e.id','g.name','h.name','i.name','b.id')
+                    ->orderBy('f.name','asc')
                     ->where('a.investor_id',$investor_id)
                     ->get();
     }
