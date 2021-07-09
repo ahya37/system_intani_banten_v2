@@ -88,7 +88,6 @@ class CapitalController extends Controller
         $investor      = $investorModel->getNameInvestor($investor_id);
         $farmer        = $investorModel->getFarmerByInvestor($investor_id);
         $provider = new IntaniProvider();
-        $no = 1;
-        return view('pages.members.managements.capitals.detail',compact('investor','farmer','investorModel','provider','capitalModel','no'));
+        return view('pages.members.managements.capitals.detail',compact('investor','farmer','investorModel','provider','capitalModel'));
     }
 }

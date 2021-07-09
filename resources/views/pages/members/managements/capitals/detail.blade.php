@@ -37,6 +37,7 @@
                               @php
                                   $farmer_id    = $farmer->farmer_id;
                                   $investor_id  = $farmer->investor_id;
+                                  $no = 1;
                                   $capitals     = $capitalModel->getTotalCapitalByAgriculturGroup($farmer_id, $investor_id);
                               @endphp
                               <div class="table table-responsive">
