@@ -64,7 +64,7 @@ class Investor extends Model
                 join capitals as g on a.id = g.agricultural_group_id
                 join managements as h on g.management_id = h.id
                 where a.farmer_id = $farmer_id and h.investor_id = $investor_id
-                GROUP BY a.land_area, a.farmer_id ,c.id, b.name_type, c.date, a.number_of_seeds, d.name, e.name, f.name, a.type_of_seed,
+                GROUP BY a.land_area, a.farmer_id ,c.id, b.name_type, a.id, c.date, a.number_of_seeds, d.name, e.name, f.name, a.type_of_seed,
                 a.number_of_seeds, a.unit ";
         $result = DB::select($sql);
         return $result;
