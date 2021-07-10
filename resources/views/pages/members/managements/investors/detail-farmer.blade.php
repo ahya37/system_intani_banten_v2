@@ -79,7 +79,7 @@
                                             @endif
                                         </td>
                                         <td align="right">
-                                            <a href="">
+                                            <a href="{{ route('member-management-investor-capitalbreakdown', $item->agricultur_group_id) }}">
                                                 {{$provider->decimalFormat($item->total_biaya)}}
                                             </a>
                                         </td>
@@ -92,7 +92,10 @@
                                             $investor_id  = $row->investor_id;
                                             $jumlah_total          = $investorModel->getJumlahTotal($farmer_id,$investor_id);
                                         @endphp
-                                        <tr style="background-color: #0e7d7d" class="text-white">
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                         <tr style="background-color: #0e7d7d" class="text-white">
                                             <td colspan=""><b>JUMLAH</b></td>
                                             <td colspan="2" align="right"><b>{{$provider->decimalFormat($jumlah_total->luas_lahan) }}</b></td>
                                             <td colspan="2"></td>
@@ -101,8 +104,7 @@
                                             <td colspan="1" align="right">{{$provider->decimalFormat($jumlah_total->total_biaya) }}</b></td>
                                             <td></td>
                                         </tr>
-                                        @endforeach
-                                    </tbody>
+                                    </tfoot>
                                     </table>
                              </div>
                             @endforeach

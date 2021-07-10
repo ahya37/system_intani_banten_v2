@@ -92,6 +92,7 @@ Route::group(['prefix' => 'member','namespace' => 'Member'], function(){
 			Route::post('invstore/save','ManagementController@saveInvestor')->name('member-management-investor-save');
 			Route::get('invstore/index','InvestorController@index')->name('member-management-investor-index');
 			Route::get('invstore/farmer/{investor_id}','InvestorController@farmerByInvestor')->name('member-management-investor-farmer');
+			Route::get('invstore/capitalbreakdown/{agricultur_group_id}','InvestorController@capitalBreakdown')->name('member-management-investor-capitalbreakdown');
 
 			// petani
 			Route::get('farmer/index','FarmerController@index')->name('member-management-farmer-index');

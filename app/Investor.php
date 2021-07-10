@@ -50,7 +50,7 @@ class Investor extends Model
 
     public function getDetailAgricultur($farmer_id)
     {
-        $sql = " SELECT a.land_area, a.farmer_id, c.id as capital_id, a.id, b.name_type, c.date as tgl_tanam, a.number_of_seeds, d.name as village,
+        $sql = " SELECT a.land_area, a.farmer_id, c.id, a.id as agricultur_group_id, b.name_type, c.date as tgl_tanam, a.number_of_seeds, d.name as village,
                 e.name as district, f.name as regency, a.type_of_seed, a.number_of_seeds, a.unit,
                 SUM(g.cost_of_seeds+g.rental_cost+
                 g.material_processing_costs+g.planting_costs+g.maintenance_cost+g.fertilizer_costs+
@@ -85,6 +85,62 @@ class Investor extends Model
             join capitals as b on a.id = b.agricultural_group_id
             join managements as c on b.management_id = c.id
             where a.farmer_id = $farmer_id and c.investor_id = $investor_id ";
+        return collect(\DB::select($sql))->first();
+    }
+
+    public function getFarmerByAgriculturId($agricultur_group_id)
+    {
+        $sql = "SELECT d.name as farmer_name, e.name_type 
+                from agricultural_groups as b
+                join farmers as c on b.farmer_id = c.id 
+                join members as d on c.member_id = d.id
+                join type_of_agriculturs as e on b.type_of_agriculture_id = e.id
+                where b.id = $agricultur_group_id";
+        return collect(\DB::select($sql))->first();
+    }
+
+    public function getCapitalBreakdown($agricultur_group_id)
+    {
+         $sql = "SELECT a.cost_of_seeds, a.rental_cost , a.material_processing_costs
+                , a.planting_costs , a.maintenance_cost
+                , a.fertilizer_costs , a.harvest_costs 
+                , a.other_costs , a.accounts_receivable, a.created_at,
+                SUM(a.cost_of_seeds + a.rental_cost + a.material_processing_costs
+                + a.planting_costs + a.maintenance_cost
+                + a.fertilizer_costs + a.harvest_costs 
+                + a.other_costs + a.accounts_receivable) as total
+                from capitals as a
+                join agricultural_groups as b on a.agricultural_group_id = b.id
+                join type_of_agriculturs as e on b.type_of_agriculture_id = e.id
+                where b.id = $agricultur_group_id 
+                group by a.cost_of_seeds, a.rental_cost , a.material_processing_costs
+                , a.planting_costs , a.maintenance_cost
+                , a.fertilizer_costs , a.harvest_costs 
+                , a.other_costs , a.accounts_receivable, a.created_at";
+        $result = DB::select($sql);
+        return $result;
+    }
+
+    public function getJumlahCapitalBreakdown($agricultur_group_id)
+    {
+        $sql = "SELECT 
+                SUM(a.cost_of_seeds) as cost_of_seeds,
+                SUM(a.rental_cost) as rental_cost,
+                SUM(a.material_processing_costs) as material_processing_costs,
+                SUM(a.planting_costs) as planting_costs,
+                SUM(a.maintenance_cost) as maintenance_cost,
+                SUM(a.fertilizer_costs) as fertilizer_costs,
+                SUM(a.harvest_costs) as harvest_costs,
+                SUM(a.other_costs) as other_costs,
+                SUM(a.accounts_receivable) as accounts_receivable,
+                SUM(a.cost_of_seeds + a.rental_cost + a.material_processing_costs
+                + a.planting_costs + a.maintenance_cost
+                + a.fertilizer_costs + a.harvest_costs 
+                + a.other_costs + a.accounts_receivable) as total
+                from capitals as a
+                join agricultural_groups as b on a.agricultural_group_id = b.id
+                join type_of_agriculturs as e on b.type_of_agriculture_id = e.id
+                where b.id = $agricultur_group_id";
         return collect(\DB::select($sql))->first();
     }
 }
