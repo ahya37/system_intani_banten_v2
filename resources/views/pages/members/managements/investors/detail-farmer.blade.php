@@ -84,7 +84,7 @@
                                             </a>
                                         </td>
                                          <td align="center">
-                                            <a href="" class="btn btn-sm custom-button text-white">Lihat</a>
+                                            <a href="{{ route('member-management-investor-harvestplanning', $item->agricultur_group_id) }}" class="btn btn-sm custom-button text-white">Lihat</a>
                                         </td>
                                         </tr>
                                         @php

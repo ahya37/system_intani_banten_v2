@@ -90,7 +90,7 @@ class Investor extends Model
 
     public function getFarmerByAgriculturId($agricultur_group_id)
     {
-        $sql = "SELECT d.name as farmer_name, e.name_type 
+        $sql = "SELECT d.name as farmer_name, e.name_type, b.land_area 
                 from agricultural_groups as b
                 join farmers as c on b.farmer_id = c.id 
                 join members as d on c.member_id = d.id

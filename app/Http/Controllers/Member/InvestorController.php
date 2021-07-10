@@ -6,6 +6,7 @@ use App\Farmer;
 use App\Member;
 use App\Investor;
 use App\AgriculturalGroup;
+use App\HarvestPlanning;
 use Illuminate\Http\Request;
 use App\Providers\IntaniProvider;
 use App\Http\Controllers\Controller;
@@ -97,5 +98,18 @@ class InvestorController extends Controller
         $capital_breakdown = $investorModel->getCapitalBreakdown($agricultur_group_id);
         $total_jumlah      = $investorModel->getJumlahCapitalBreakdown($agricultur_group_id); 
         return view('pages.members.managements.investors.capital-breakdown', compact('capital_breakdown','farmer','provider','total_jumlah'));
+    }
+
+    public function harvestPlanningByAgriculturId($agricultur_group_id)
+    {
+        $provider = new IntaniProvider();
+        $investorModel = new Investor();
+        $farmer        = $investorModel->getFarmerByAgriculturId($agricultur_group_id);
+        $harvestPlanningModel = new HarvestPlanning();
+        $harvest_planning     = $harvestPlanningModel->getHarvestPlanningByAgriculturGroupId($agricultur_group_id);
+        $total_harvest        = $harvestPlanningModel->getTotalHarvestByAgriculturGroupId($agricultur_group_id);
+        
+        return view('pages.members.managements.investors.harvest-planning', compact('harvest_planning','farmer','provider','total_harvest'));
+
     }
 }
