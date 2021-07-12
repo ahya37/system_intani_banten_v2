@@ -116,6 +116,9 @@ Route::group(['prefix' => 'member','namespace' => 'Member'], function(){
 
 			// perencanaan panen
 			Route::get('invstore/harvestplanning/{agricultur_group_id}','InvestorController@harvestPlanningByAgriculturId')->name('member-management-investor-harvestplanning');
+
+			#perencanaan panen
+			Route::post('harvestplanning/add','HarvestPlanningController@addHarvestPlanningAgriculture')->name('member-management-add-harvesplanning');
 			
 
 

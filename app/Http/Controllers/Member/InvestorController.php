@@ -109,7 +109,7 @@ class InvestorController extends Controller
         $harvest_planning     = $harvestPlanningModel->getHarvestPlanningByAgriculturGroupId($agricultur_group_id);
         $total_harvest        = $harvestPlanningModel->getTotalHarvestByAgriculturGroupId($agricultur_group_id);
         
-        return view('pages.members.managements.investors.harvest-planning', compact('harvest_planning','farmer','provider','total_harvest'));
+        return view('pages.members.managements.investors.harvest-planning', compact('harvest_planning','farmer','provider','total_harvest','agricultur_group_id'));
 
     }
 }
