@@ -2,11 +2,6 @@
 @section('title')
     Intani Banten
 @endsection
-@push('addon-style')
-          <link href="{{ asset('css/home.css') }}" rel="stylesheet" />
-          <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" />
-          <link href="https://cdn.datatables.net/1.10.25/css/dataTables.jqueryui.min.css" rel="stylesheet" />
-@endpush
 @section('content')
     <!-- Page Content -->
     <div class="page-content page-home" data-aos="fade-down">
@@ -29,57 +24,58 @@
                                 <tr>
                                   <td>Jenis Pertanian</td><td>:</td><td>{{ $farmer->name_type }}</td>
                                 </tr>
+                                 <tr>
+                                  <td>Tanggal</td><td>:</td><td>{{ date('d-m-Y', strtotime($capital_breakdown->created_at)) }}</td>
+                                </tr>
                               </tbody>                                 
                               </table>
                           </div>
                       </div>
                       <div class="col-md-12">
                           <div class="table-responsive">
-                             <table id="data" class="display table table-sm table-striped" style="font-size: 12px">
-                                 <thead>
-                                    <tr class="text-center">
-                                        <th>Tanggal</th>
-                                        <th>Biaya Bibit (Rp.)</th>
-                                        <th>Biaya Sewa Lahan (Rp.)</th>
-                                        <th>Biaya Pengolahan Lahan (Rp.)</th>
-                                        <th>Biaya Penanaman (Rp.)</th>
-                                        <th>Biaya Pemeliharaan (Rp.)</th>
-                                        <th>Biaya Pupuk (Rp.)</th>
-                                        <th>Biaya Panen (Rp.)</th>
-                                        <th>Biaya lainnya (Rp.)</th>
-                                        <th>Piutang (Rp.)</th>
-                                        <th>Total (Rp.)</th>
+                             <table id="data" class="table table-striped" style="font-size: 12px">
+                                 <tbody>
+                                    <tr>
+                                      <td>Biaya Bibit</td>
+                                      <td>:</td><td align="right">Rp. {{$provider->decimalFormat($capital_breakdown->cost_of_seeds) }}</td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                  @foreach ($capital_breakdown as $item)
-                                      <tr class="text-right">
-                                        <td>{{date('d-m-Y', strtotime($item->created_at)) }}</td>
-                                        <td>{{$provider->decimalFormat($item->cost_of_seeds) }}</td>
-                                        <td>{{$provider->decimalFormat($item->rental_cost) }}</td>
-                                        <td>{{$provider->decimalFormat($item->material_processing_costs) }}</td>
-                                        <td>{{$provider->decimalFormat($item->planting_costs) }}</td>
-                                        <td>{{$provider->decimalFormat($item->maintenance_cost) }}</td>
-                                        <td>{{$provider->decimalFormat($item->fertilizer_costs) }}</td>
-                                        <td>{{$provider->decimalFormat($item->harvest_costs) }}</td>
-                                        <td>{{$provider->decimalFormat($item->other_costs) }}</td>
-                                        <td>{{$provider->decimalFormat($item->accounts_receivable) }}</td>
-                                        <td>{{$provider->decimalFormat($item->total) }}</td>
-                                      </tr>
-                                  @endforeach
+                                    <tr>
+                                      <td>Biaya Sewa Lahan</td>
+                                      <td>:</td><td align="right">Rp. {{ $provider->decimalFormat($capital_breakdown->rental_cost) }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Biaya Pengolahan Lahan</td>
+                                      <td>:</td><td align="right">Rp. {{ $provider->decimalFormat($capital_breakdown->material_processing_costs) }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Biaya Penanaman</td>
+                                      <td>:</td><td align="right">Rp. {{ $provider->decimalFormat($capital_breakdown->planting_costs) }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Biaya Pemeliharaan</td>
+                                      <td>:</td><td align="right">Rp. {{ $provider->decimalFormat($capital_breakdown->maintenance_cost) }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Biaya Pupuk</td>
+                                      <td>:</td><td align="right">Rp. {{ $provider->decimalFormat($capital_breakdown->fertilizer_costs) }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Biaya Panen</td>
+                                      <td>:</td><td align="right">Rp. {{ $provider->decimalFormat($capital_breakdown->harvest_costs) }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Biaya lainnya</td>
+                                      <td>:</td><td align="right">Rp. {{ $provider->decimalFormat($capital_breakdown->other_costs) }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Piutang</td>
+                                      <td>:</td><td align="right">Rp. {{ $provider->decimalFormat($capital_breakdown->accounts_receivable) }}</td>
+                                    </tr>
                                 </tbody>
                                          <tr style="background-color: #0e7d7d" align="right" class="text-white">
                                             <td><b>JUMLAH</b></td>
-                                            <td>{{$provider->decimalFormat($total_jumlah->cost_of_seeds) }}</td>
-                                            <td>{{$provider->decimalFormat($total_jumlah->rental_cost) }}</td>
-                                            <td>{{$provider->decimalFormat($total_jumlah->material_processing_costs) }}</td>
-                                            <td>{{$provider->decimalFormat($total_jumlah->planting_costs) }}</td>
-                                            <td>{{$provider->decimalFormat($total_jumlah->maintenance_cost) }}</td>
-                                            <td>{{$provider->decimalFormat($total_jumlah->fertilizer_costs) }}</td>
-                                            <td>{{$provider->decimalFormat($total_jumlah->harvest_costs) }}</td>
-                                            <td>{{$provider->decimalFormat($total_jumlah->other_costs) }}</td>
-                                            <td>{{$provider->decimalFormat($total_jumlah->accounts_receivable) }}</td>
-                                            <td>{{$provider->decimalFormat($total_jumlah->total) }}</td>
+                                            <td></td>
+                                            <td>Rp. {{$provider->decimalFormat($total_jumlah->total) }}</td>
                                         </tr>
                               </table>
                           </div>
@@ -93,12 +89,3 @@
       </div>
     </div>
 @endsection
-@push('addon-script')
-<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.25/js/dataTables.jqueryui.min.js"></script>
-<script>
-    $(document).ready(function() {
-    $('#data').DataTable();
-} );
-</script>    
-@endpush

@@ -26,4 +26,5 @@ class Management extends Model
                     ->get();
         return $result;
     }
+
 }

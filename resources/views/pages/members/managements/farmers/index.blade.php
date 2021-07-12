@@ -38,14 +38,15 @@
                                  <tr>
                                      <td>{{ $no++ }}</td>
                                      <td>
-                                         <img src="" width="50" alt="{{ $row->farmer_name }}">
+                                         <img src="{{ asset('storage/'. $row->photo) }}" width="40" alt="{{ $row->farmer_name }}">
                                      </td>
                                      <td>{{ $row->farmer_name }}</td>
                                      <td>{{'Ds'.$row->village.', Kec.'.$row->district. ' ,'. $row->regency }}</td>
                                      <td>{{ $row->phone_number }}</td>
                                      <td>
-                                              <a href="" class="btn btn-sm custom-button text-white">Detail</a>
-                                          </td>
+                                              <a href="{{ route('member-management-farmer-detail', $row->member_id) }}" class="btn btn-sm custom-button text-white">Detail</a>
+                                              <a href="{{ route('member-management-farmer-edit', $row->member_id) }}" class="btn btn-sm custom-button text-white">Edit</a>
+                                      </td>
                                  </tr>                                     
                                  @endforeach
                               </tbody>

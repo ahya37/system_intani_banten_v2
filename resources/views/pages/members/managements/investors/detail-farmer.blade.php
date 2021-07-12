@@ -79,7 +79,7 @@
                                             @endif
                                         </td>
                                         <td align="right">
-                                            <a href="{{ route('member-management-investor-capitalbreakdown', $item->agricultur_group_id) }}">
+                                            <a href="{{ route('member-management-investor-capitalbreakdown', ['agricultur_group_id' => $item->agricultur_group_id, 'capital_id' => $item->capital_id]) }}">
                                                 {{$provider->decimalFormat($item->total_biaya)}}
                                             </a>
                                         </td>

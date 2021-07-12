@@ -151,60 +151,7 @@
                 </a>
               </div>
             </li>
-            <li class="nav-item dropdown">
-               <a
-                 class="nav-link active dropdown-toggle"
-                 href="#"
-                 role="button"
-                 data-toggle="dropdown"
-                 aria-haspopup="true"
-                 aria-expanded="false"
-                 v-pre
-               >
-                 Survei
-               </a>
-               <div
-                 class="dropdown-menu dropdown-menu-right"
-                 aria-labelledby="navbarDropdown"
-               >
-                 <a
-                   class="dropdown-item"
-                   href="{{ route('member-survey-farmer') }}"
-                 >
-                   Petani
-                 </a>
-                 <a
-                   class="dropdown-item"
-                   href="{{ route('member-farmer-create') }}"
-                 >
-                   Tambah Petani
-                 </a>
-                 <a
-                   class="dropdown-item"
-                   href="{{ route('member-agricultur') }}"
-                 >
-                   Kelompok Pertanian
-                 </a>
-                  <a
-                   class="dropdown-item"
-                   href=""
-                 >
-                   Pengelola
-                 </a>
-                  <a
-                   class="dropdown-item"
-                   href=""
-                 >
-                   Investor
-                 </a>
-                  <a
-                   class="dropdown-item"
-                   href=""
-                 >
-                   Permodalan
-                 </a>
-               </div>
-            </li>
+          
             <li class="nav-item dropdown">
               <a
                 href="#"

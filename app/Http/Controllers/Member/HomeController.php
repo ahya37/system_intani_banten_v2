@@ -11,6 +11,8 @@ use App\AgriculturalGroup;
 use App\Capital;
 use App\Farmer;
 use App\Http\Controllers\Controller;
+use App\Management;
+use App\Manager;
 use App\Providers\IntaniProvider;
 
 class HomeController extends Controller
@@ -62,10 +64,41 @@ class HomeController extends Controller
         }elseif ($member->professional_category_id == 8) {
             #jika sebagai pembudidaya = 8
             return 'saya pembudidaya';
-        }else{
+        }
+        elseif ($member->professional_category_id == 4) {
             #jika sebagai akademisi = 4
+            return 'saya akademisi';
+
+        } elseif ($member->professional_category_id == 3) {
             #jika sebagai tokoh = 3
-            return view('pages.members.dashboard-management');
+            return 'saya akademisi';
+        }
+        else{
+
+            #jumlah investor
+            $manager = auth()->guard('member')->user()->id;
+            $managementModel = new Management();
+            $investor        = $managementModel->getInvestorByManagement($manager);
+            $total_investor  = count($investor);
+
+            #jumlah petani
+            $farmerModel = new Farmer();
+            $farmer      = $farmerModel->getFarmerByManagement($manager);
+            $total_farmer  = count($farmer);
+
+            #jumlah kelompok pertanian
+            $agricultureGroupModel = new AgriculturalGroup();
+            $agriculture_group     = $agricultureGroupModel->getAgriculturGroupByManagement($manager);
+            $total_agriculture_group = count($agriculture_group);
+
+            #jumlah seluruh nominal permodalan yang di kelolanya
+            $capitalModel = new Capital();
+            $total_capital      = $capitalModel->getInvestorAndTotalCapitalByManagement($manager);
+            
+            $provider = new IntaniProvider();
+
+
+            return view('pages.members.dashboard-management', compact('total_investor','total_farmer','total_agriculture_group','total_capital','provider'));
         }
     }
 

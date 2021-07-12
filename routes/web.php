@@ -92,12 +92,15 @@ Route::group(['prefix' => 'member','namespace' => 'Member'], function(){
 			Route::post('invstore/save','ManagementController@saveInvestor')->name('member-management-investor-save');
 			Route::get('invstore/index','InvestorController@index')->name('member-management-investor-index');
 			Route::get('invstore/farmer/{investor_id}','InvestorController@farmerByInvestor')->name('member-management-investor-farmer');
-			Route::get('invstore/capitalbreakdown/{agricultur_group_id}','InvestorController@capitalBreakdown')->name('member-management-investor-capitalbreakdown');
+			Route::get('invstore/capitalbreakdown/{agricultur_group_id}/{capital_id}','InvestorController@capitalBreakdown')->name('member-management-investor-capitalbreakdown');
 
 			// petani
 			Route::get('farmer/index','FarmerController@index')->name('member-management-farmer-index');
 			Route::get('farmer/create','ManagementController@createFarmer')->name('member-management-farmer-create');
 			Route::post('farmer/save','ManagementController@saveFarmer')->name('member-management-farmer-save');
+			Route::get('farmer/edit/{member_id}','FarmerController@edit')->name('member-management-farmer-edit');
+			Route::post('farmer/update/{id}','FarmerController@update')->name('member-management-farmer-update');
+			Route::get('farmer/detail/{member_id}','FarmerController@detail')->name('member-management-farmer-detail');
 
 			// kelompok pertanain
 			Route::get('agriculturalgroup/index','AgriculturGroupController@index')->name('member-management-agriculturalgroup-index');

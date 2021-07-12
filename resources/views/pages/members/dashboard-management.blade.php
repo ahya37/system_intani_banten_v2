@@ -22,6 +22,11 @@
                             <div class="dashboard-card-title">
                               Investor
                             </div>
+                             <div class="">
+                               <h5 class="mt-3">
+                              {{ $total_investor }}
+                               </h5>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -35,6 +40,11 @@
                           <div class="col-md-12">
                             <div class="dashboard-card-title">
                               Petani
+                            </div>
+                            <div class="">
+                               <h5 class="mt-3">
+                              {{ $total_farmer }}
+                               </h5>
                             </div>
                           </div>
                         </div>
@@ -50,6 +60,11 @@
                             <div class="dashboard-card-title">
                               Kelompok Pertanian
                             </div>
+                             <div class="">
+                               <h5 class="mt-3">
+                                {{ $total_agriculture_group }}
+                               </h5>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -63,6 +78,11 @@
                           <div class="col-md-12">
                             <div class="dashboard-card-title">
                               Permodalan
+                            </div>
+                             <div class="">
+                               <h5 class="mt-3">
+                                Rp. {{$provider->decimalFormat($total_capital->total) }}
+                               </h5>
                             </div>
                           </div>
                         </div>

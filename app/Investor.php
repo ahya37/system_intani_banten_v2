@@ -50,7 +50,7 @@ class Investor extends Model
 
     public function getDetailAgricultur($farmer_id)
     {
-        $sql = " SELECT a.land_area, a.farmer_id, c.id, a.id as agricultur_group_id, b.name_type, c.date as tgl_tanam, a.number_of_seeds, d.name as village,
+        $sql = " SELECT g.id as capital_id, a.land_area, a.farmer_id, c.id, a.id as agricultur_group_id, b.name_type, c.date as tgl_tanam, a.number_of_seeds, d.name as village,
                 e.name as district, f.name as regency, a.type_of_seed, a.number_of_seeds, a.unit,
                 SUM(g.cost_of_seeds+g.rental_cost+
                 g.material_processing_costs+g.planting_costs+g.maintenance_cost+g.fertilizer_costs+
@@ -65,7 +65,7 @@ class Investor extends Model
                 join capitals as g on a.id = g.agricultural_group_id
                 join managements as h on g.management_id = h.id
                 where a.farmer_id = $farmer_id
-                GROUP BY a.land_area, a.farmer_id ,c.id, b.name_type, a.id, c.date, a.number_of_seeds, d.name, e.name, f.name, a.type_of_seed,
+                GROUP BY g.id, a.land_area, a.farmer_id ,c.id, b.name_type, a.id, c.date, a.number_of_seeds, d.name, e.name, f.name, a.type_of_seed,
                 a.number_of_seeds, a.unit ";
         $result = DB::select($sql);
         return $result;
@@ -99,7 +99,7 @@ class Investor extends Model
         return collect(\DB::select($sql))->first();
     }
 
-    public function getCapitalBreakdown($agricultur_group_id)
+    public function getCapitalBreakdown($capital_id)
     {
          $sql = "SELECT a.cost_of_seeds, a.rental_cost , a.material_processing_costs
                 , a.planting_costs , a.maintenance_cost
@@ -112,12 +112,12 @@ class Investor extends Model
                 from capitals as a
                 join agricultural_groups as b on a.agricultural_group_id = b.id
                 join type_of_agriculturs as e on b.type_of_agriculture_id = e.id
-                where b.id = $agricultur_group_id 
+                where a.id = $capital_id 
                 group by a.cost_of_seeds, a.rental_cost , a.material_processing_costs
                 , a.planting_costs , a.maintenance_cost
                 , a.fertilizer_costs , a.harvest_costs 
                 , a.other_costs , a.accounts_receivable, a.created_at";
-        $result = DB::select($sql);
+        $result = collect(\DB::select($sql))->first();
         return $result;
     }
 

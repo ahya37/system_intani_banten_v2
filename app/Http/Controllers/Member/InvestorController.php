@@ -90,12 +90,12 @@ class InvestorController extends Controller
         return $member;
     }
 
-    public function capitalBreakdown($agricultur_group_id)
+    public function capitalBreakdown($agricultur_group_id, $capital_id)
     {
         $investorModel = new Investor();
         $provider = new IntaniProvider();
         $farmer        = $investorModel->getFarmerByAgriculturId($agricultur_group_id);
-        $capital_breakdown = $investorModel->getCapitalBreakdown($agricultur_group_id);
+        $capital_breakdown = $investorModel->getCapitalBreakdown($capital_id);
         $total_jumlah      = $investorModel->getJumlahCapitalBreakdown($agricultur_group_id); 
         return view('pages.members.managements.investors.capital-breakdown', compact('capital_breakdown','farmer','provider','total_jumlah'));
     }
