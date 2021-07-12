@@ -90,9 +90,7 @@
         </div>
       </div>
     </div>
-@endsection
 
-@push('prepend-script')
 @foreach ($harvest_planning as $row)
 <div class="modal fade" id="add{{$agricultur_group_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
