@@ -90,7 +90,9 @@
         </div>
       </div>
     </div>
+@endsection
 
+@push('prepend-script')
 @foreach ($harvest_planning as $row)
 <div class="modal fade" id="add{{$agricultur_group_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
@@ -175,8 +177,8 @@
   </div>
 </div>
 @endforeach
-
-@endsection
+  
+@endpush
 @push('addon-script')
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.25/js/dataTables.jqueryui.min.js"></script>
