@@ -18,13 +18,16 @@
                 <div class="col-md-12">
                   <div class="card mb-2 shadow bg-white rounded">
                       <div class="card-body">
-                        <div class="row">
-                          <div class="col-md-6">
-                            <h6>Perencanaan Panen</h6>
+                        <div class="col-md-12">
+                          <h6>Perencanaan Panen</h6>
+                          <div class="row">
+                            <div class="col-md-6">
+                            </div>
+                            <div class="col-md-6 text-right">
+                              <button class="btn btn-sm custom-button text-white" data-toggle="modal" data-target="#add{{$agricultur_group_id}}"><i class="fa fa-plus"></i> Tambah Perencanaan Panen</button>
+                            </div>
                           </div>
-                          <div class="col-md-6 text-right">
-                            <button class="btn btn-sm custom-button text-white" data-toggle="modal" data-target="#add"><i class="fa fa-plus"></i> Tambah Perencanaan Panen</button>
-                          </div>
+
                         </div>
                         <hr>
                         <div class="">
@@ -66,13 +69,16 @@
                                         <td align="right">{{$provider->decimalFormat($row->total_income)}}</td>                                        
                                     </tr>
                                   @endforeach
+                                </tbody>
+                                <tfoot>
+                                  
                                   <tr style="background-color: #0e7d7d" class="text-white">
                                     <td colspan="3">Total</td>
                                     <td>{{$provider->decimalFormat($total_harvest->jumlah_panen)}} kg</td>
                                     <td align="right">{{$provider->decimalFormat($total_harvest->estimasi_harga_jual)}}</td>
                                     <td align="right">{{$provider->decimalFormat($total_harvest->estimasi_keuntungan)}}</td>
                                 </tr>
-                              </tbody>
+                              </tfoot>
                               </table>
                           </div>
                       </div>
@@ -86,7 +92,7 @@
     </div>
 
 @foreach ($harvest_planning as $row)
-<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="add{{$agricultur_group_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
