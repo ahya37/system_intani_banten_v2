@@ -11,7 +11,7 @@
                 aria-expanded="false"
                 v-pre
               >
-                Investor
+                Pengelola
               </a>
               <div
                 class="dropdown-menu dropdown-menu-right"
@@ -19,15 +19,9 @@
               >
                 <a
                   class="dropdown-item"
-                  href="{{ route('member-management-investor-index') }}"
+                  href="{{ route('member-investor-management-index') }}"
                 >
-                  Data Investor
-                </a>
-                <a
-                  class="dropdown-item"
-                  href="{{ route('member-management-investor-create') }}"
-                >
-                  Tambah Investor
+                  Data Pengelola
                 </a>
               </div>
             </li>
@@ -49,15 +43,9 @@
               >
                 <a
                   class="dropdown-item"
-                  href="{{ route('member-management-farmer-index') }}"
+                  href="{{ route('member-investor-farmer') }}"
                 >
                   Data Petani
-                </a>
-                <a
-                  class="dropdown-item"
-                  href="{{ route('member-management-farmer-create') }}"
-                >
-                  Tambah Petani
                 </a>
               </div>
             </li>

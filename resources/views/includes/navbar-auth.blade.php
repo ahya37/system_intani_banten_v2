@@ -20,6 +20,8 @@
             @include('includes.navbar-menu-survey-team')
             @elseif (auth()->guard('member')->user()->roles_manager == 1)
             @include('includes.navbar-menu-survey-team-management')
+            @elseif (auth()->guard('member')->user()->roles_investor == 1)
+            @include('includes.navbar-menu-survey-team-investor')
             @else
             @include('includes.navbar-menu-member-only')
             @endif

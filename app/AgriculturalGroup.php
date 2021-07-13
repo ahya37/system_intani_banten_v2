@@ -129,6 +129,25 @@ class AgriculturalGroup extends Model
         return $result;
     }
 
+    public function getAgriculturGroupByInvestor($investor_id)
+    {
+        $sql = "SELECT
+                e.name_type, e.id as type_of_agriculture_id,
+                SUM(d.land_area) as total_luas_lahan,
+                SUM(IF(d.unit = 'satuan', d.number_of_seeds, 0)) as total_satuan,
+                sum(a.cost_of_seeds+a.rental_cost+a.material_processing_costs+a.planting_costs+a.maintenance_cost+a.fertilizer_costs+a.harvest_costs+a.other_costs+a.accounts_receivable) as total_biaya,
+                SUM(IF(d.unit = 'kg', d.number_of_seeds, 0)) as total_kg
+                from capitals as a
+                join managements as b on a.management_id = b.id
+                join investors as c on b.investor_id = c.id
+                left join agricultural_groups as d on a.agricultural_group_id = d.id
+                join type_of_agriculturs as e on d.type_of_agriculture_id = e.id
+                where c.member_id = $investor_id
+                GROUP BY e.name_type, e.id order by e.name_type asc";
+        $result = DB::select($sql);
+        return $result;
+    }
+
     
 
 }

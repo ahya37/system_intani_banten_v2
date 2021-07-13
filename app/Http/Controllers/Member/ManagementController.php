@@ -223,4 +223,27 @@ class ManagementController extends Controller
         return redirect()->back()->with(['success' => 'Permodalan telah disimpan']);
     }
 
+    public function managementByInvestor()
+    {
+        $investor = $this->getMember();
+
+        $managementModel = new Management();
+        $management      = $managementModel->getManagementByInvestor($investor);
+        $no = 1;
+
+        return view('pages.members.investors.management.index', compact('management','no'));
+    }
+
+    public function getFarmerByManagement($management_id)
+    {
+        $investorModel   = new Investor();
+        $managementModel = new Management();
+        $provider        = new IntaniProvider();
+
+        $manager         = $managementModel->getNameManager($management_id);
+        $farmer          = $managementModel->getFarmerByManagementId($management_id);
+        $no = 1;
+        return view('pages.members.investors.management.detail-farmer', compact('no','manager','farmer','investorModel','provider'));
+    }
+
 }

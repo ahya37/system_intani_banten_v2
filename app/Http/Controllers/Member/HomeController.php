@@ -13,6 +13,7 @@ use App\Farmer;
 use App\Http\Controllers\Controller;
 use App\Management;
 use App\Manager;
+use App\Providers\DashboardInformation;
 use App\Providers\IntaniProvider;
 
 class HomeController extends Controller
@@ -75,30 +76,26 @@ class HomeController extends Controller
         }
         else{
 
-            #jumlah investor
             $manager = auth()->guard('member')->user()->id;
-            $managementModel = new Management();
-            $investor        = $managementModel->getInvestorByManagement($manager);
-            $total_investor  = count($investor);
-
-            #jumlah petani
-            $farmerModel = new Farmer();
-            $farmer      = $farmerModel->getFarmerByManagement($manager);
-            $total_farmer  = count($farmer);
-
-            #jumlah kelompok pertanian
-            $agricultureGroupModel = new AgriculturalGroup();
-            $agriculture_group     = $agricultureGroupModel->getAgriculturGroupByManagement($manager);
-            $total_agriculture_group = count($agriculture_group);
-
-            #jumlah seluruh nominal permodalan yang di kelolanya
-            $capitalModel = new Capital();
-            $total_capital      = $capitalModel->getInvestorAndTotalCapitalByManagement($manager);
             
-            $provider = new IntaniProvider();
+            #pengelola
+            $DashboardInformation   = new DashboardInformation();
+            $dataDashboardManagement= $DashboardInformation->getDashboardManagement($manager);
+            $total_investor         = $dataDashboardManagement['total_investor']; #total_investor
+            $total_farmer           = $dataDashboardManagement['total_farmer']; #total petani
+            $total_agriculture_group= $dataDashboardManagement['total_agriculture_group']; #total kelompok pertanian
+            $total_capital          = $dataDashboardManagement['total_capital']->total; # total permodalan
+
+            #investor
+            $investor_id  = $manager;
+            $getDashboardInvestor     = $DashboardInformation->getDashboardInvestor($investor_id);
+            $investor_total_management= $getDashboardInvestor['total_management']; #total pengelola
+            $investor_total_farmer    = $getDashboardInvestor['total_farmer']; #total petani
+            $investor_total_agriculture_group = $getDashboardInvestor['total_agriculture_group']; #total kelompok pertanian
+            $investor_total_capital = $getDashboardInvestor['total_capital']->total; #total permodalan
 
 
-            return view('pages.members.dashboard-management', compact('total_investor','total_farmer','total_agriculture_group','total_capital','provider'));
+            return view('pages.members.dashboard-management', compact('total_investor','total_farmer','total_agriculture_group','total_capital','provider','investor_total_management','investor_total_farmer','investor_total_agriculture_group','investor_total_capital'));
         }
     }
 

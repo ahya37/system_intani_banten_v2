@@ -67,4 +67,14 @@ class FarmerController extends Controller
         $member = Member::where('id', $id)->first();
         return view('pages.members.managements.farmers.detail', compact('member'));
     }
+
+    public function farmerByInvestor()
+    {
+        $investor = $this->getMember();
+
+        $farmerModel = new Farmer();
+        $farmer      = $farmerModel->getFarmerByAccountInvestor($investor);
+        $no          = 1;
+        return view('pages.members.investors.farmers.index', compact('farmer','no'));
+    }
 }

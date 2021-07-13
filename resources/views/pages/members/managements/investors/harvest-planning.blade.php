@@ -71,7 +71,6 @@
                                   @endforeach
                                 </tbody>
                                 <tfoot>
-                                  
                                   <tr style="background-color: #0e7d7d" class="text-white">
                                     <td colspan="3">Total</td>
                                     <td>{{$provider->decimalFormat($total_harvest->jumlah_panen)}} kg</td>

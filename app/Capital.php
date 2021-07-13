@@ -60,6 +60,21 @@ class Capital extends Model
         return $result;
     }
 
+    public function getInvestorAndTotalCapitalByInvestor($investor_id)
+    {
+         $sql = "SELECT 
+                SUM(e.cost_of_seeds + e.rental_cost + e.material_processing_costs
+                                + e.planting_costs + e.maintenance_cost
+                                + e.fertilizer_costs + e.harvest_costs 
+                                + e.other_costs + e.accounts_receivable) as total
+                from managements as a
+                join investors as b on a.investor_id = b.id
+                join capitals as e on a.id = e.management_id 
+                where b.member_id = $investor_id";
+        $result = collect(\DB::select($sql))->first();
+        return $result;
+    }
+
     public function getTotalCapitalByAgriculturGroup($farmer_id, $investor_id)
     {
         $sql = "SELECT

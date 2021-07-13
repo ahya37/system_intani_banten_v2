@@ -121,7 +121,14 @@ Route::group(['prefix' => 'member','namespace' => 'Member'], function(){
 			Route::post('harvestplanning/add','HarvestPlanningController@addHarvestPlanningAgriculture')->name('member-management-add-harvesplanning');
 			
 
+		});
 
+		Route::group(['prefix' => 'investor'], function(){
+			Route::get('/management/index','ManagementController@managementByInvestor')->name('member-investor-management-index');
+			Route::get('/management/farmer/{management_id}','ManagementController@getFarmerByManagement')->name('member-investor-management-farmer');
+
+			#petani
+			Route::get('farmer/index','FarmerController@farmerByInvestor')->name('member-investor-farmer');
 		});
 });
 
